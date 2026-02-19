@@ -5,6 +5,9 @@ const app = express();
 
 const port = 8000;
 
+/// middleware
+app.use(express.urlencoded({extended:false}));
+
 /// Routes
 
 // app.get("/api/user",(req,res) => {
@@ -34,19 +37,26 @@ const port = 8000;
 //     return res.json({status : "Pending"})
 // })
 
-
+// Routes
 app.route("/api/user/:id")
-    .get((req, res) => {
-        const id = Number(req.params.id);
-        const us = user.find((u) => u.id === id);
-        return res.json(us);
-    })
-    .put((req,res)=>{
-        //Edit
-         return res.json({status : "Pending"})
-    })
-    .delete((req,res =>{
-         return res.json({status : "Pending"})
-    }))
+  .get((req, res) => {
+    const id = Number(req.params.id);
+    const us = user.find((u) => u.id === id);
+    return res.json(us);
+  })
+  .put((req, res) => {
+    return res.json({ status: "Pending" });
+  })
+  .delete((req, res) => {
+    return res.json({ status: "Pending" });
+  });
+
+// Separate POST route (not inside app.route)
+app.post("/api/user", (req, res) => {
+  const body = req.body;
+  console.log(body);
+  return res.json({ status: "Pending" });
+});
+
 
 app.listen(port, () => console.log(`Server Started at Port: ${port}`));
